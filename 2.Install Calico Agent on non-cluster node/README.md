@@ -145,4 +145,28 @@ sudo systemctl enable --now calico-node.service
 sudo systemctl enable --now calico-fluent-bit.service
 ```
 
-Optionally change some variables in /etc/calico/calico-node/calico-node.env
+Set the node name to be correct for calico-node.env and the node itself:
+```bash
+echo "NODE_NAME=noncluster" | sudo tee -a /etc/calico/calico-node/calico-node.env
+```
+```bash
+sudo hostnamectl set-hostname noncluster
+```
+```bash
+echo -e "127.0.0.1   localhost noncluster\n::1         localhost noncluster" | sudo tee /etc/hosts
+```
+```bash
+sudo vi /etc/cloud/cloud.cfg
+```
+change:
+```bash
+preserve_hostname: false
+```
+to
+```bash
+preserve_hostname: true
+```
+
+```bash
+sudo reboot now
+```
