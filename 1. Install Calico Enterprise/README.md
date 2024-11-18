@@ -2,9 +2,9 @@
 
 This lab provides the instructions to:
 
-* [Overview](https://github.com/tigera-cs/Calico-Security-Observability-Troubleshooting-Training/tree/main/modules/1.%20Install%20Calico%20Enterprise#overview)
-* [Install Calico Enterprise](https://github.com/tigera-cs/Calico-Security-Observability-Troubleshooting-Training/tree/main/modules/1.%20Install%20Calico%20Enterprise#install-calico-enterprise)
-* [Access CE Manager UI using Ingress](https://github.com/tigera-cs/Calico-Security-Observability-Troubleshooting-Training/tree/main/modules/1.%20Install%20Calico%20Enterprise#access-ce-manager-ui-using-ingress)
+* [Overview](https://github.com/VerodaClient/Calico-Non-Cluster-Nodes-Workshop/tree/main/1.%20Install%20Calico%20Enterprise#overview)
+* [Install Calico Enterprise](https://github.com/VerodaClient/Calico-Non-Cluster-Nodes-Workshop/tree/main/1.%20Install%20Calico%20Enterprise#install-calico-enterprise)
+* [Access CE Manager UI using Ingress](https://github.com/VerodaClient/Calico-Non-Cluster-Nodes-Workshop/tree/main/1.%20Install%20Calico%20Enterprise#access-ce-manager-ui-using-ingress)
 
 
 ### Overview
