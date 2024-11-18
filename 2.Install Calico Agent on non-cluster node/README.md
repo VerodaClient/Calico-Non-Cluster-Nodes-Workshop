@@ -79,7 +79,7 @@ current-context: noncluster-hosts
 preferences: {}
 clusters:
 - cluster:
-    Certificate-authority-data: <your cluster certificate>
+    certificate-authority-data: <your cluster certificate>
     server: <your cluster server>
   name: noncluster-hosts
 contexts:
