@@ -4,7 +4,6 @@ This lab provides the instructions to:
 
 * [Overview](https://github.com/tigera-cs/Calico-Security-Observability-Troubleshooting-Training/tree/main/modules/1.%20Install%20Calico%20Enterprise#overview)
 * [Install Calico Enterprise](https://github.com/tigera-cs/Calico-Security-Observability-Troubleshooting-Training/tree/main/modules/1.%20Install%20Calico%20Enterprise#install-calico-enterprise)
-* [Install Calico Enterprise command line utility "calicoctl"](https://github.com/tigera-cs/Calico-Security-Observability-Troubleshooting-Training/tree/main/modules/1.%20Install%20Calico%20Enterprise#install-calico-enterprise-command-line-utility-calicoctl)
 * [Access CE Manager UI using Ingress](https://github.com/tigera-cs/Calico-Security-Observability-Troubleshooting-Training/tree/main/modules/1.%20Install%20Calico%20Enterprise#access-ce-manager-ui-using-ingress)
 
 
@@ -43,9 +42,9 @@ kubectl get nodes
 ```
 ```bash
 NAME                                      STATUS     ROLES                  AGE     VERSION
-ip-10-0-1-20.eu-west-1.compute.internal   NotReady   control-plane,master   8m31s   v1.23.17
-ip-10-0-1-30.eu-west-1.compute.internal   NotReady   worker                 8m4s    v1.23.17
-ip-10-0-1-31.eu-west-1.compute.internal   NotReady   worker                 8m4s    v1.23.17
+ip-10-0-1-20.eu-west-1.compute.internal   NotReady   control-plane,master   8m31s   v1.27.15
+ip-10-0-1-30.eu-west-1.compute.internal   NotReady   worker                 8m4s    v1.27.15
+ip-10-0-1-31.eu-west-1.compute.internal   NotReady   worker                 8m4s    v1.27.15
 ```
 
 3. Calico Enterprise uses ElasticSearch to store various logs such as flowlogs, DNS logs, and all others that it collects over the network. ElasticSearch requires persistent storage to store the data. This lab uses host path storage provisioner, which is not suitable for production enviroment and can result in scalability issues, instability, and data loss. 
@@ -90,7 +89,7 @@ tigera-elasticsearch   kubernetes.io/no-provisioner   Delete          WaitForFir
 5. The Tigera Operator is a Kubernetes operator and provides a well-defined API for how you install, configure, and run Calico Enterprise. Tigera operator also automates and controls the the lifecycle of a Calico Enterprise deployment. Tigera operator manifest configures the necessary resources such as custom resource definitions, namespaces, services accounts, clusterroles, etc so that cluster is ready to deploy other calico Enterprise components. Get yourself familiar with the content of the manifest and create it in the cluster.
 
 ```bash
-kubectl create -f https://downloads.tigera.io/ee/v3.16.1/manifests/tigera-operator.yaml
+kubectl create -f https://downloads.tigera.io/ee/v3.20.0-2.0/manifests/tigera-operator.yaml
 
 ```
 
@@ -112,8 +111,7 @@ tigera-operator-54f8b4545c-bffkc   1/1     Running   0          10s   10.0.1.31 
 
 
 ```bash
-kubectl create -f https://downloads.tigera.io/ee/v3.16.1/manifests/tigera-prometheus-operator.yaml
-
+kubectl create -f https://downloads.tigera.io/ee/v3.20.0-2.0/manifests/tigera-prometheus-operator.yaml
 ```
 
 8. Check the tigera-prometheus pod status. 
@@ -220,8 +218,7 @@ EOF
   **Note:** We have already customized and deployed the Installation custom resource, which is also available in the following manifest. However, since there is no customization in the following manifest, there is no change in the Installation resource configuration. We will just receive a message that the resource already exist.
 
 ```bash
-kubectl create -f https://docs.tigera.io/manifests/custom-resources.yaml
-
+kubectl create -f https://downloads.tigera.io/ee/v3.20.0-2.0/manifests/custom-resources.yaml
 ```
 
 16. Watch the status of various components progressing. We need to wait for at least one of the tigera-apiserver pods in the tigera-system namespace to be running before applying the tigera licensekey in the next step. The reasons is that the LicenseKey resource uses "projectcalico.org/v3" api, which is managed by the tigera apiserver.
@@ -307,38 +304,6 @@ monitor               True        False         False      53m
 
 _______________________________________________________________________________________________________________________________________________________________________
 
-
-### Install Calico Enterprise command line utility "calicoctl"
-
-calicoctl is the Calico Enterprise specific command line utility that allows you to create, read, update, and delete Calico Enterprise objects from the command line. 
-1. Follow the the instruction on the link below to **Install calicoctl as a binary on a single host** for Linux operating system. 
-
-https://docs.tigera.io/calico-enterprise/latest/operations/clis/calicoctl/install#install-calicoctl-as-a-binary-on-a-single-host
-
-2. Once you set the file to be exacutable, make sure you move it into your path.
-
-```bash
-sudo mv calicoctl /usr/local/bin
-
-```
-
-3.  We also need to make sure the `Cluster Calico Enterprise Version` matches the calicoctl version in `Client Version`. Otherwise please raise this to your instructor.
-
-```bash
-calicoctl version
-
-```
-```
-tigera@bastion:~$ calicoctl version
-Client Version:    v3.17.2
-Release:           Calico Enterprise
-Git commit:        b95c95d112
-Cluster Calico Version:               v3.25.1
-Cluster Calico Enterprise Version:    v3.17.1
-Cluster Type:                         typha,kdd,k8s,operator,bgp,kubeadm
-```
-
-_______________________________________________________________________________________________________________________________________________________________________
 
 
 ### Access CE Manager UI using Ingress
