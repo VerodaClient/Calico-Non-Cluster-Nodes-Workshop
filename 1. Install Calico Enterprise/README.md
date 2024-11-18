@@ -251,15 +251,22 @@ Alternatively, you could use the following command to watch the status of variou
 watch kubectl get tigerastatus
 ```
 ```bash
-NAME                  AVAILABLE   PROGRESSING   DEGRADED   SINCE
-apiserver             True        False         False      7m48s
-calico                True        False         False      8m43s
-compliance                                      True
-intrusion-detection                             True
-log-collector                                   True
-log-storage                                     True
-manager                                         True
-monitor               True        False         False      7m53s
+NAME                          AVAILABLE   PROGRESSING   DEGRADED   SINCE
+apiserver                     True        False         False      6s
+calico                        True        False         False      26s
+intrusion-detection                                     True
+ippools                       True        False         False      2m1s
+log-collector                                           True
+log-storage                   True        False         False      111s
+log-storage-access                                      True
+log-storage-elastic                                     True
+log-storage-esmetrics                                   True
+log-storage-kubecontrollers                             True
+log-storage-secrets           True        False         False      111s
+manager                                                 True
+monitor                       True        False         False      26s
+policy-recommendation                                   True
+tiers                                                   True
 ```
 
 16. Once the apiserver and calico resources are True, apply the LicenseKey to unblock enterprise features of Calico Enterprise.
