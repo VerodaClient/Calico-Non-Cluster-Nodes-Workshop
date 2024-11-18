@@ -131,7 +131,7 @@ sudo yum install conntrack -y
 sudo curl https://downloads.tigera.io/ee/rpms/v3.20/calico_rhel9.repo -o /etc/yum.repos.d/calico_rhel9.repo
 ```
 ```bash
-sudo dnf install calico-node calico-fluent-bit
+sudo dnf install calico-node calico-fluent-bit -y
 ```
 
 Copy the kubeconfig into /etc/calico/kubeconfig and change ownership to calico:calico
