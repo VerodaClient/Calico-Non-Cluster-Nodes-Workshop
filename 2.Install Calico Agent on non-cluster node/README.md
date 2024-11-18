@@ -69,7 +69,9 @@ EOF
 ```bash
 kubectl get secret -n calico-system tigera-noncluster-host -o jsonpath='{.data.token}' | base64 --decode
 ```
-
+```bash
+kubectl config view --flatten --minify
+```
 ```bash
 apiVersion: v1
 kind: Config
