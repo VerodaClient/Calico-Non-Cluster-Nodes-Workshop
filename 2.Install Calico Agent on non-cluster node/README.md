@@ -32,6 +32,30 @@ For non-cluster hosts, you can secure host interfaces using host endpoints. Host
 
 #### Set up your Kubernetes cluster to work with a non-cluster host or VM
 
+#### Expose elasticsearch service
+
+```bash
+kubectl apply -f-<<EOF
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: tigera-secure-es-http-np
+  name: tigera-secure-es-http-np
+  namespace: tigera-elasticsearch
+spec:
+  ports:
+  - port: 9200
+    name: https
+    protocol: TCP
+    nodePort: 31920
+  selector:
+    common.k8s.elastic.co/type: elasticsearch
+    elasticsearch.k8s.elastic.co/cluster-name: tigera-secure
+  type: NodePort
+EOF
+```
+
 ```bash
 kubectl create -f - <<EOF
 apiVersion: operator.tigera.io/v1
