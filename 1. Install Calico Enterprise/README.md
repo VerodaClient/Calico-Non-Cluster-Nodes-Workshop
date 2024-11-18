@@ -286,15 +286,23 @@ watch kubectl get tigerastatus
 You should see an output similar to the following, which denotes Calico Enterprise is fully deployed in the cluster.
 
 ```bash
-NAME                  AVAILABLE   PROGRESSING   DEGRADED   SINCE
-apiserver             True        False         False      53m
-calico                True        False         False      54m
-compliance            True        False         False      46s
-intrusion-detection   True        False         False      56s
-log-collector         True        False         False      86s
-log-storage           True        False         False      51s
-manager               True        False         False      11s
-monitor               True        False         False      53m
+NAME                          AVAILABLE   PROGRESSING   DEGRADED   SINCE
+apiserver                     True        False         False      7m29s
+calico                        True        False         False      7m49s
+intrusion-detection           True        False         False      3m49s
+ippools                       True        False         False      9m24s
+log-collector                 True        False         False      5m24s
+log-storage                   True        False         False      9m14s
+log-storage-access            True        False         False      2m49s
+log-storage-dashboards        True        False         False      3m19s
+log-storage-elastic           True        False         False      3m24s
+log-storage-esmetrics         True        False         False      3m9s
+log-storage-kubecontrollers   True        False         False      3m34s
+log-storage-secrets           True        False         False      9m14s
+manager                       True        False         False      5m24s
+monitor                       True        False         False      7m49s
+policy-recommendation         True        False         False      6m14s
+tiers                         True        False         False      6m29s
 ```
 
 _______________________________________________________________________________________________________________________________________________________________________
