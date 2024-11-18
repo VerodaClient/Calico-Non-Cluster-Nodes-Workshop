@@ -104,6 +104,8 @@ spec:
  interfaceName: eth0
  node: noncluster
  expectedIPs: ["10.0.1.222"]
+ profiles:
+ - projectcalico-default-allow
 EOF
 ```
 
