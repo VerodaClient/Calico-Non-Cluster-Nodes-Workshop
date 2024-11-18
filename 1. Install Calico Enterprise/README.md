@@ -145,19 +145,7 @@ kubectl create secret generic tigera-pull-secret \
     --type=kubernetes.io/dockerconfigjson -n tigera-operator
 ```
 
-11. We also need to create the pull secret in the tigera-prometheus namespace and patch the prometheus operator deployment to pull the images. For all the other Calico Enterprise components such as calico-node, typha, and others to pull the images, tigera-operator copies "tigera-pull-secret" secret to the relevant namespaces.
-
-```bash
-kubectl create secret generic tigera-pull-secret \
-    --type=kubernetes.io/dockerconfigjson -n tigera-prometheus \
-    --from-file=.dockerconfigjson=/home/tigera/config.json
-```
-```bash
-kubectl patch deployment -n tigera-prometheus calico-prometheus-operator \
-    -p '{"spec":{"template":{"spec":{"imagePullSecrets":[{"name": "tigera-pull-secret"}]}}}}'
-```
-
-12. tigera-operator uses custom resouces to deploy the required resources for Calico Enterprise. For example, tigera-operator creates all the the pods in the calico-system namesapce and a number of other resources when it sees the Installation resource in the cluster.
+11. tigera-operator uses custom resouces to deploy the required resources for Calico Enterprise. For example, tigera-operator creates all the the pods in the calico-system namesapce and a number of other resources when it sees the Installation resource in the cluster.
 
 Run the following command to see if there is any resources in the calico-system namesapce. You should see none.
 
@@ -172,7 +160,7 @@ https://docs.tigera.io/reference/installation/api#operator.tigera.io/v1.Installa
 
 We have customized the installation resource for this lab. We have defined an IPPOOL with the CIDR 10.48.0.0/24. This must be within the range of the pod network CIDR when Kubernetes is bootstrapped. Here we are defining a smaller subnet within the available range as we will be creating additional pools for other purposes in subsequent labs.
 
-13. Run the following command to find the cluster-cidr (pod-network-cidr) that was used to bootstrap the cluster. You should have a similar output provided below.
+12. Run the following command to find the cluster-cidr (pod-network-cidr) that was used to bootstrap the cluster. You should have a similar output provided below.
 
 ```bash
 kubectl cluster-info dump | grep -m 2 -E "service-cluster-ip-range|cluster-cidr"
@@ -183,7 +171,7 @@ kubectl cluster-info dump | grep -m 2 -E "service-cluster-ip-range|cluster-cidr"
                             "--cluster-cidr=10.48.0.0/16"
 ```
 
-14. Now apply the following manifest, which will create the the Installation custom resource and enables the CNI functionality in the cluster.
+13. Now apply the following manifest, which will create the the Installation custom resource and enables the CNI functionality in the cluster.
 
 ```yaml
 kubectl apply -f -<<EOF
@@ -213,7 +201,7 @@ EOF
 ```
 
 
-15.  Get yourself familiar with the resources in the following manifest and then install the Calico Enterprise custom resources.
+14.  Get yourself familiar with the resources in the following manifest and then install the Calico Enterprise custom resources.
 
   **Note:** We have already customized and deployed the Installation custom resource, which is also available in the following manifest. However, since there is no customization in the following manifest, there is no change in the Installation resource configuration. We will just receive a message that the resource already exist.
 
@@ -221,7 +209,7 @@ EOF
 kubectl create -f https://downloads.tigera.io/ee/v3.20.0-2.0/manifests/custom-resources.yaml
 ```
 
-16. Watch the status of various components progressing. We need to wait for at least one of the tigera-apiserver pods in the tigera-system namespace to be running before applying the tigera licensekey in the next step. The reasons is that the LicenseKey resource uses "projectcalico.org/v3" api, which is managed by the tigera apiserver.
+15. Watch the status of various components progressing. We need to wait for at least one of the tigera-apiserver pods in the tigera-system namespace to be running before applying the tigera licensekey in the next step. The reasons is that the LicenseKey resource uses "projectcalico.org/v3" api, which is managed by the tigera apiserver.
 
 ```bash
 watch kubectl get pods -A
@@ -274,14 +262,14 @@ manager                                         True
 monitor               True        False         False      7m53s
 ```
 
-17. Once the apiserver and calico resources are True, apply the LicenseKey to unblock enterprise features of Calico Enterprise.
+16. Once the apiserver and calico resources are True, apply the LicenseKey to unblock enterprise features of Calico Enterprise.
 
 ```bash
 kubectl create -f /home/tigera/license.yaml
 
 ```
 
-18. Watch the status of various components progressing. Ensure that all the components are AVAILABLE and there is no components in PROGRESSING or DEGRADED status before moving forward. This can take few minutes.
+17. Watch the status of various components progressing. Ensure that all the components are AVAILABLE and there is no components in PROGRESSING or DEGRADED status before moving forward. This can take few minutes.
 
 ```bash
 watch kubectl get tigerastatus
