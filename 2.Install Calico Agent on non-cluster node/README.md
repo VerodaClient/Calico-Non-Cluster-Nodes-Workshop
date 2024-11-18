@@ -63,7 +63,7 @@ kind: NonClusterHost
 metadata:
   name: tigera-secure
 spec:
-  endpoint: <endpoint for non-cluster host log forwarder>
+  endpoint: 10.0.1.30:31920
 EOF
 ```
 ```bash
