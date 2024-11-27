@@ -41,7 +41,7 @@ kind: NonClusterHost
 metadata:
   name: tigera-secure
 spec:
-  endpoint: https://manager.<LAB_NAME>.training.tigera.ca
+  endpoint: https://manager.<LAB_NAME>.training.tigera.ca:443
 EOF
 ```
 ```bash
